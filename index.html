@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+    <script src="index.js"></script>
+</head>
+<body ng-app="myApp">
+
+    <div style="text-align:center">
+        <div class="Title1">
+            <div>Find Me!</div>
+            <div>Animal Picture book</div>
+        </div>
+        <ui-view></ui-view>
+    </div>
+
+
+    <script type="text/ng-template" id="/home.html" ng-init="checked = true">
+        <a href="#!/pages">
+            <div class="Button1">Add a custom page</div>
+        </a>
+        <div>
+            <span id="prevButton" class="Button1" ng-click="changePage('prevButton')">◄ Pevious page</span> <span ng-model="pageNumber">{{currentPageNumber + 1}}</span> <span id="nextButton" class="Button1" ng-click="changePage('nextButton')">Next page ►</span>
+        </div>
+
+        <div>
+            <img id="backgroundImage" src="{{currentPage.backgroundImage}}" />
+            <div>
+                <img id="contentImage" src="{{currentPage.content[0].image}}"
+                     style="position:relative; left:{{currentPage.content[0].horizontalPostion}}; bottom:{{currentPage.content[0].verticalPosition}}; height:{{currentPage.content[0].height}}; width:{{currentPage.content[0].width}}" />
+            </div>
+            <div class="content-area sample-show-hide" ng-show="checked">
+                <img id="contentImage" src="{{currentPage.content[0].hideImage}}"
+                     style="position:relative; left:{{currentPage.content[0].horizontalPostion}}; bottom:{{currentPage.content[0].hideVerticalPosition}}; height:{{currentPage.content[0].height}}; width:{{currentPage.content[0].width}}; background-color:black;" />
+            </div>
+        </div>
+        <input type="checkbox" ng-model="checked"
+               style="position:relative; left:{{currentPage.content[0].horizontalPostion}}; bottom:{{currentPage.content[0].hideVerticalPosition}}; ">
+
+        <div class="textBox1">{{currentPage.content[0].text}}</div>
+
+    </script>
+
+    <script type="text/ng-template" id="/pages.html">
+        <a href="#!/home">
+            <div class="Button1">Go back to book</div>
+        </a>
+
+        <div class="Button1" ng-click="AddPageToBook()">Add page to book</div>
+        <div>
+            <span class="Button2" ng-click="ChangeEditType('background')">New Background</span>
+            <span class="Button2" ng-click="ChangeEditType('animal')">New Animal</span>
+            <span class="Button2" ng-click="ChangeEditType('hide')">New Hiding Spot</span>
+            <span class="Button2" ng-click="ChangeEditType('text')">New Text</span>
+            <span class="Button2" ng-click="ChangeEditType('position')">New Position</span>
+        </div>
+        <div >
+            <span ng-model="EditText">{{EditText}} </span> <input ng-model="EditInput" /> <span ng-model="EditButton" class="Button3" ng-click="ApplyChanges()">Apply</span>
+            
+        </div>
+
+        <div>
+            <img id="backgroundImage" src="{{Page.backgroundImage}}" style="border:dashed"/>
+            <div>
+                <img id="contentImage" src="{{Page.content[0].image}}"
+                     style="position:relative; left:{{Page.content[0].horizontalPostion}}; bottom:{{Page.content[0].verticalPosition}}; height:{{Page.content[0].height}}; width:{{Page.content[0].width}}" />
+            </div>
+            <div class="content-area sample-show-hide" ng-show="checked">
+                <img id="contentImage" src="{{Page.content[0].hideImage}}"
+                     style="position:relative; left:{{Page.content[0].horizontalPostion}}; bottom:{{Page.content[0].hideVerticalPosition}}; height:{{Page.content[0].height}}; width:{{Page.content[0].width}}; background-color:black;" />
+            </div>
+        </div>
+        <input type="checkbox" ng-model="checked"
+               style="position:relative; left:{{Page.content[0].horizontalPostion}}; bottom:{{Page.content[0].hideVerticalPosition}}; ">
+
+        <div class="textBox1">{{Page.content[0].text}}</div>
+
+    </script>
+
+</body>
+</html>
